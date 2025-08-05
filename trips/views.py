@@ -39,7 +39,7 @@ def generate_itinerary(request, trip_code):
 
     itinerary = "Day 1: Visit popular attractions and blah"
 
-    return render(request, 'trips/generated itenarary.html',{
+    return render(request, 'trips/generate_itinerary.html',{
         'trip': trip,
         'itenarary': itinerary,
     })
