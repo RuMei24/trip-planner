@@ -34,6 +34,12 @@ def submit_preference(request, trip_code):
     return render(request, 'trips/submit_preference.html', {'form': form, 'trip': trip})
 
 def generate_itinerary(request, trip_code):
+    if preferences.count() < trip.num_people:
+        return render(request, 'trips/waiting_for_more.html', {
+            'trip': trip,
+            'submitted': preferences.count(),
+            'total': trip.num_people,
+        })
     trip = get_object_or_404(Trip, trip_code=trip_code)
     preferences = Preference.objects.filter(trip=trip)
 

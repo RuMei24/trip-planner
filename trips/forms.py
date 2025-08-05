@@ -5,12 +5,17 @@ from .models import Preference
 class TripForm(forms.ModelForm):
     class Meta:
         model = Trip
-        fields = ['title', 'destination', 'num_days']
+        fields = ['title', 'destination', 'num_days', 'num_people']
 
         widgets = {
             'title': forms.TextInput(attrs={'class': 'form-control'}),
             'destination': forms.TextInput(attrs={'class': 'form-control'}),
             'num_days': forms.NumberInput(attrs={'class': 'form-control'}),
+            'num_people': forms.NumberInput(attrs={
+                'class': 'form-control',
+                'min': 1,  # Optional: don't allow 0 or negative values
+                'placeholder': 'How many people are going?'
+            }),
         }
 
 class PreferenceForm(forms.ModelForm):

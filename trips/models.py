@@ -10,6 +10,7 @@ class Trip(models.Model):
     num_days = models.PositiveIntegerField()
     trip_code = models.CharField(max_length=10, unique=True, default=generate_trip_code)
     created_at = models.DateTimeField(auto_now_add=True)
+    num_people = models.IntegerField(default=1)
 
     def __str__(self):
         return f"{self.title} - {self.destination}"

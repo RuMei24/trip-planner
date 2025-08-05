@@ -11,6 +11,10 @@
     <form method="POST">
         {% csrf_token %}
         {{ form.as_p }}
+        <div>
+            <label for="id_num_people">Number of People Going:</label>
+            {{ form.num_people }}
+        </div>
         <button type="submit">Create Trip</button>
     </form>
 </body>
