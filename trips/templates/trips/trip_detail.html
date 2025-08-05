@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Trip Details</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'trips/css/create_trip.css' %}">
+</head>
+<body>
+    <h1>Trip Created Successfully 🎉</h1>
+
+    <div>
+        <p><strong>Title:</strong> {{ trip.title }}</p>
+        <p><strong>Destination:</strong> {{ trip.destination }}</p>
+        <p><strong>Number of Days:</strong> {{ trip.num_days }}</p>
+        <p><strong>Trip Code:</strong> {{ trip.trip_code }}</p>
+        <p><strong>Created At:</strong> {{ trip.created_at }}</p>
+    </div>
+
+    <p>You can now share this link with your friends:</p>
+    <code>{{ request.build_absolute_uri }}</code>
+</body>
+</html>

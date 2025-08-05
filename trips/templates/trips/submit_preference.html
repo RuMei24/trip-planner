@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Submit Preferences</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'trips/css/create_trip.css' %}">
+</head>
+<body>
+    <h1>Submit Your Preferences for {{ trip.title }}</h1>
+
+    <form method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Submit Preferences</button>
+    </form>
+</body>
+</html>
