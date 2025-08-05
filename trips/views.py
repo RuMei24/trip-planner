@@ -34,20 +34,21 @@ def submit_preference(request, trip_code):
     return render(request, 'trips/submit_preference.html', {'form': form, 'trip': trip})
 
 def generate_itinerary(request, trip_code):
-    if preferences.count() < trip.num_people:
-        return render(request, 'trips/waiting_for_more.html', {
-            'trip': trip,
-            'submitted': preferences.count(),
-            'total': trip.num_people,
-        })
     trip = get_object_or_404(Trip, trip_code=trip_code)
     preferences = Preference.objects.filter(trip=trip)
-
+    if preferences.count() < trip.num_people:
+            message = f"Waiting for more friends to submit preferences... ({preferences.count()}/{trip.num_people})"
+            return render(request, 'trips/generated_itinerary.html', {
+            'trip': trip,
+            'message': message,
+            'itinerary': None,
+        })
     itinerary = "Day 1: Visit popular attractions and blah"
 
     return render(request, 'trips/generate_itinerary.html',{
         'trip': trip,
         'itenarary': itinerary,
+        'message': None,
     })
 
 
