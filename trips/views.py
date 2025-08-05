@@ -1,6 +1,13 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from .forms import TripForm, PreferenceForm
 from .models import Trip, Preference
+import os
+import openai
+from dotenv import load_dotenv
+
+load_dotenv()
+
+openai.api_key = os.getenv("OPENAI_API_KEY")
 
 def create_trip(request):
     if request.method == "POST":
@@ -38,12 +45,25 @@ def generate_itinerary(request, trip_code):
     preferences = Preference.objects.filter(trip=trip)
     if preferences.count() < trip.num_people:
             message = f"Waiting for more friends to submit preferences... ({preferences.count()}/{trip.num_people})"
-            return render(request, 'trips/generated_itinerary.html', {
+            return render(request, 'trips/generate_itinerary.html', {
             'trip': trip,
             'message': message,
             'itinerary': None,
         })
-    itinerary = "Day 1: Visit popular attractions and blah"
+    
+    prefs = [f"{p.user_name}: {p.preference_text}" for p in preferences]
+    prompt = f"Generate a {trip.num_days}-day trip itinerary for {trip.destination}. Preferences:\n" + "\n".join(prefs)
+
+    response = openai.ChatCompletion.create(
+        model="gpt-4",
+        messages=[
+            {"role": "system", "content": "You are a helpful travel planner."},
+            {"role": "user", "content": prompt}
+        ],
+        temperature=0.7
+    )
+
+    itinerary = response.choices[0].message.content
 
     return render(request, 'trips/generate_itinerary.html',{
         'trip': trip,
