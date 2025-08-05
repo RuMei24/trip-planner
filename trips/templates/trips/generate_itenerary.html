@@ -1,0 +1,11 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>AI Generated Itinerary</title>
+</head>
+<body>
+    <h1>Itinerary for Trip: {{ trip.title }}</h1>
+    <pre>{{ itinerary }}</pre>
+    <a href="{% url 'trip_detail' trip.trip_code %}">← Back to Trip</a>
+</body>
+</html>

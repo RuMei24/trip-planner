@@ -33,4 +33,15 @@ def submit_preference(request, trip_code):
 
     return render(request, 'trips/submit_preference.html', {'form': form, 'trip': trip})
 
+def generate_itinerary(request, trip_code):
+    trip = get_object_or_404(Trip, trip_code=trip_code)
+    preferences = Preference.objects.filter(trip=trip)
+
+    itinerary = "Day 1: Visit popular attractions and blah"
+
+    return render(request, 'trips/generated itenarary.html',{
+        'trip': trip,
+        'itenarary': itinerary,
+    })
+
 
