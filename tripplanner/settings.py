@@ -26,11 +26,16 @@ SECRET_KEY = 'django-insecure-l+ux0lb%a^^4wtyqdg1_d3ycr=j)w3n2eepfk4wn4-0s5d!#-s
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['localhost',
+ALLOWED_HOSTS = [
+    'localhost',
     '127.0.0.1',
-    os.environ.get('RENDER_EXTERNAL_HOSTNAME'),
     'trip-planner-an0z.onrender.com'
 ]
+
+# Optional: add dynamic Render domain if it exists
+render_host = os.environ.get('RENDER_EXTERNAL_HOSTNAME')
+if render_host:
+    ALLOWED_HOSTS.append(render_host)
 
 
 # Application definition

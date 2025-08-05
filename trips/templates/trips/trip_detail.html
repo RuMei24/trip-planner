@@ -17,9 +17,11 @@
     </div>
 
     <p>You can now share this link with your friends:</p>
-    <code>{{ request.scheme }}://{{ request.get_host }}{% url 'trip_detail' trip.trip_code %}</code>
-    <a href="{% url 'generate_itinerary' trip.trip_code %}">
-    <button>Generate AI Itinerary</button>
-</a>
+    <code>{{ request.scheme }}://{{ request.get_host }}{% url 'submit_preference' trip.trip_code %}</code>
+
+    <form action="{% url 'generate_itinerary' trip.trip_code %}" method="get">
+        <button type="submit">Generate AI Itinerary</button>
+    </form>
+
 </body>
 </html>
